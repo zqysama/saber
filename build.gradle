@@ -12,6 +12,16 @@ repositories {
     mavenCentral()
 }
 
+allprojects {
+    apply plugin:'java'
+    dependencies {
+        // lombok
+//        compileOnly 'org.projectlombok:lombok'
+//        annotationProcessor 'org.projectlombok:lombok'
+        implementation 'org.projectlombok:lombok:1.18.4'
+    }
+}
+
 dependencies {
     implementation 'org.springframework.boot:spring-boot-starter-jdbc'
     implementation 'org.springframework.boot:spring-boot-starter-thymeleaf'

@@ -1,1 +1,3 @@
 rootProject.name = 'saber'
+include 'algorithms'
+
