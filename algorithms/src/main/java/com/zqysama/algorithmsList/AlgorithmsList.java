@@ -1,6 +1,6 @@
 package com.zqysama.algorithmsList;
 
-public class AlgorithmsOneList {
+public class AlgorithmsList {
 
     private Node head;
 
@@ -73,7 +73,7 @@ public class AlgorithmsOneList {
 
 
     public static void main(String[] args) throws Exception {
-        AlgorithmsOneList list = new AlgorithmsOneList();
+        AlgorithmsList list = new AlgorithmsList();
         list.insert(3,0);
         list.insert(7,1);
         list.insert(9,2);
