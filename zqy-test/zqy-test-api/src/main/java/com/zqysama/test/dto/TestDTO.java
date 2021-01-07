@@ -1,4 +1,4 @@
-package com.zqysama.dto;
+package com.zqysama.test.dto;
 
 import lombok.Data;
 

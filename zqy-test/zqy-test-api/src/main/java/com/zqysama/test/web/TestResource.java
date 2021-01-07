@@ -1,4 +1,4 @@
-package com.zqysama.web;
+package com.zqysama.test.web;
 
 import org.springframework.web.bind.annotation.RequestMapping;
 

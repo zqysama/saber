@@ -75,6 +75,26 @@ subprojects {
         dependencies {
             // impl 依赖同名 api
             compile project(":$project.parent.name:$project.parent.name-api")
+
+            compile group: 'org.apache.commons', name: 'commons-lang3', version: '3.8.1'
+
+            // jdbc
+            compile "org.springframework.boot:spring-boot-starter-jdbc"
+            // 数据库驱动
+            // compile group: 'oracle', name: 'ojdbc6', version: '11.2.0.3'
+            compile 'mysql:mysql-connector-java:5.1.49'
+
+            // redis
+            compile "org.springframework.boot:spring-boot-starter-data-redis"
+            compile "org.apache.commons:commons-pool2"
+
+            // mapstruct
+            compileOnly "org.mapstruct:mapstruct-processor:${mapstructVersion}"
+            annotationProcessor "org.mapstruct:mapstruct-processor:${mapstructVersion}"
+            implementation "org.mapstruct:mapstruct-jdk8:${mapstructVersion}"
+
+            // mybatis
+            implementation "org.mybatis.spring.boot:mybatis-spring-boot-starter:${springBootMybatisVersion}"
         }
     }
 

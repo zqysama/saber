@@ -1,4 +1,4 @@
-package com.zqysama.service;
+package com.zqysama.test.service;
 
 public interface TestService {
 

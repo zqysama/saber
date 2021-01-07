@@ -1,6 +1,6 @@
-package com.zqysama.web;
+package com.zqysama.test.web;
 
-import com.zqysama.service.TestService;
+import com.zqysama.test.service.TestService;
 import org.springframework.web.bind.annotation.RestController;
 
 import javax.annotation.Resource;
