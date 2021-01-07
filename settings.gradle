@@ -1,7 +1,10 @@
 rootProject.name = 'saber'
 
 include 'algorithms'
-include 'zqy-test'
+
+include 'zqy-test:zqy-test-api'
+include 'zqy-test:zqy-test-impl'
+
 include 'zqy-start'
 include 'zqy-common'
 

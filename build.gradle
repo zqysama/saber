@@ -46,8 +46,8 @@ allprojects {
 
     dependencies {
 
-        // lombok
-        implementation 'org.projectlombok:lombok:1.18.4'
+        //log4j
+        implementation "log4j:log4j:${log4jVersion}"
 
         implementation "org.springframework.boot:spring-boot-starter"
         implementation "org.springframework.boot:spring-boot-starter-jdbc"
@@ -70,6 +70,18 @@ allprojects {
 }
 
 subprojects {
+
+    if (it.name.endsWith("-impl")) {
+        dependencies {
+            // impl 依赖同名 api
+            compile project(":$project.parent.name:$project.parent.name-api")
+        }
+    }
+
+    dependencies {
+        compileOnly 'org.projectlombok:lombok'
+        annotationProcessor 'org.projectlombok:lombok'
+    }
 
 }
 
