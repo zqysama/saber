@@ -80,9 +80,6 @@ subprojects {
 
             // jdbc
             compile "org.springframework.boot:spring-boot-starter-jdbc"
-            // 数据库驱动
-            // compile group: 'oracle', name: 'ojdbc6', version: '11.2.0.3'
-            compile 'mysql:mysql-connector-java:5.1.49'
 
             // redis
             compile "org.springframework.boot:spring-boot-starter-data-redis"
