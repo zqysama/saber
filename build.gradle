@@ -76,6 +76,8 @@ subprojects {
             // impl 依赖同名 api
             compile project(":$project.parent.name:$project.parent.name-api")
 
+            compile project(":zqy-common")
+
             compile group: 'org.apache.commons', name: 'commons-lang3', version: '3.8.1'
 
             // jdbc
