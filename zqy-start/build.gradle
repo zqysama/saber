@@ -1,5 +1,4 @@
 dependencies {
     implementation(project(":zqy-common"))
     implementation(project(":zqy-test:zqy-test-impl"))
-    testCompile group: 'junit', name: 'junit', version: '4.12'
 }

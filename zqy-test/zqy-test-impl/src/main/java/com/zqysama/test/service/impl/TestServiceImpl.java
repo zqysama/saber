@@ -27,16 +27,16 @@ public class TestServiceImpl implements TestService {
         for (TestPO testPO : testPOS) {
             log.info("1、{}",testPO.toString());
         }
-        redisTemplate.opsForValue().set("testBoolean",true);
-        boolean test = redisTemplate.opsForValue().get("testBoolean");
-        if (test) {
-            log.info("true");
-        } else {
-            log.info("false");
-        }
-        redisTemplate.opsForValue().set("testBoolean2",false);
-        Boolean testBoolean2 = redisTemplate.opsForValue().get("testBoolean2");
-        System.out.println(testBoolean2);
+//        redisTemplate.opsForValue().set("testBoolean",true);
+//        boolean test = redisTemplate.opsForValue().get("testBoolean");
+//        if (test) {
+//            log.info("true");
+//        } else {
+//            log.info("false");
+//        }
+//        redisTemplate.opsForValue().set("testBoolean2",false);
+//        Boolean testBoolean2 = redisTemplate.opsForValue().get("testBoolean2");
+//        System.out.println(testBoolean2);
         return "hello spring boot";
     }
 }

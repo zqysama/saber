@@ -61,6 +61,9 @@ allprojects {
         runtimeOnly 'org.springframework.boot:spring-boot-devtools'
         compile "org.springframework.boot:spring-boot-starter-data-redis"
 
+        // junit5
+        testImplementation "org.junit.jupiter:junit-jupiter:${junitVersion}"
+
     }
 
     task cleanBuildOutDir(type: Delete) {
@@ -76,6 +79,7 @@ subprojects {
             // impl 依赖同名 api
             compile project(":$project.parent.name:$project.parent.name-api")
 
+            // 依赖公共模块
             compile project(":zqy-common")
 
             compile group: 'org.apache.commons', name: 'commons-lang3', version: '3.8.1'
