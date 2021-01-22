@@ -64,6 +64,7 @@ allprojects {
         // junit5
         testImplementation "org.junit.jupiter:junit-jupiter:${junitVersion}"
 
+        implementation "com.github.houbb:junitperf:2.0.0"
     }
 
     task cleanBuildOutDir(type: Delete) {
