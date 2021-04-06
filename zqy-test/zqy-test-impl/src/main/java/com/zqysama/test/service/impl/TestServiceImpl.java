@@ -29,6 +29,8 @@ public class TestServiceImpl implements TestService {
         for (TestPO testPO : testPOS) {
             log.info("1、{}",testPO.toString());
         }
+        Object arg = new Object();
+        arg.getClass().getDeclaredFields();
 //        redisTemplate.opsForValue().set("testBoolean",true);
 //        boolean test = redisTemplate.opsForValue().get("testBoolean");
 //        if (test) {
