@@ -1,0 +1,785 @@
+<!doctype html>
+<html>
+<head>
+    <script type="text/javascript" src="https://www.gstatic.com/charts/loader.js"></script>
+    <meta charset="utf-8">
+    <title>StreamIntTest-JUnit Performance Report</title>
+
+    <style>
+
+        a {
+            color: #2a7ae2;
+            text-decoration: none;
+        }
+
+        a:visited {
+            color: #2A7AE2;
+        }
+
+        a:hover {
+            color: #2a7ae2;
+            text-decoration: underline;
+        }
+
+        body {
+            width: 100%;
+            height: 100%;
+            margin: 0;
+            padding: 0;
+            font-family: Verdana, serif;
+            background-color: rgb(246, 246, 246);
+        }
+
+        header {
+            height: 66px;
+            width: auto;
+            line-height: 1.8;
+            color: #044e9b;
+            text-align: center;
+            font-size: 36px;
+            border-bottom: rgb(238, 239, 237) 1px solid;
+        }
+
+        section {
+            /*padding: 25px 0 100px 100px;*/
+            /*text-align: center;*/
+            width: 960px;
+            margin: 0 auto;
+            padding-top: 20px;
+        }
+
+        section aside {
+            float: left;
+            width: 220px;
+            border: rgb(238, 239, 237) 1px solid;
+            background: #fff;
+            min-height: 580px;
+            /*position: relative;*/
+            /*margin-right: 40px;*/
+        }
+
+        aside .list-group ul {
+            list-style: none;
+            width: 200px;
+            margin: 6px auto;
+            background: rgb(248, 246, 243);
+            padding: 0;
+            overflow: auto;
+        }
+
+        aside .list-group li {
+            border-bottom: rgb(238, 239, 237) 1px solid;
+            height: 35px;
+            line-height: 35px;
+            text-align: center;
+        }
+        aside .list-group li:hover {
+            color: #111111;
+        }
+
+        aside .list-group li.active {
+            font-size: 14px;
+            font-weight: bold;
+        }
+
+        aside li.borderRightSuccess {
+            border-right: green 3px solid;
+        }
+
+        aside li.borderRightFail {
+            border-right: red 3px solid;
+        }
+
+        aside li.borderRightWarn {
+            border-right: gold 3px solid;
+        }
+
+        aside .list-group a {
+            color: #111;
+            font-size: 13px;
+            text-decoration: none;
+        }
+
+        aside .list-group a:hover, .list-group a:visited, .list-group a:active {
+            color: #aaaaaa;
+            text-decoration: none;
+        }
+
+        section .main-wrapper {
+            float: left;
+            margin-left: 40px;
+        }
+
+        section .test-method {
+            background: #fff;
+            width: 660px;
+            min-height: 580px;
+            border-bottom: rgb(238, 239, 237) 1px solid;
+            margin-bottom: 10px;
+            text-align: center;
+        }
+
+        section .test-method .test-method-name {
+            float: right;
+            font-size: 10px;
+            color: #bbb;
+            margin-top: 5px;
+            margin-right: 5px;
+        }
+
+        section .test-method-img {
+            width: 400px;
+            height: 400px;
+            margin: 0 auto;
+        }
+
+        section .data-wrapper {
+            font-size: 12px;
+            margin-top: 20px;
+            text-align: left;
+        }
+
+        section .data-wrapper .left-data {
+            width: 45%;
+            height: auto;
+            border-right: #4490f7 1px solid;
+            float: left;
+        }
+
+        section .data-wrapper .right-data {
+            width: 50%;
+            height: auto;
+            float: right;
+        }
+
+        section .data-wrapper .table td, .table th {
+            padding-right: 0.5rem;
+        }
+
+        footer {
+            text-align: center;
+            width: 100%;
+            height: 50px;
+            line-height: 50px;
+            position: fixed;
+            bottom: 0;
+            font-size: 14px;
+            color: #aaa;
+            border-top: rgb(238, 239, 237) 1px solid;
+        }
+
+        footer #top {
+            float: right;
+            margin-right: 50px;
+        }
+
+    </style>
+</head>
+
+<body>
+
+<header>JUnit 性能报告</header>
+
+<section>
+    <aside>
+        <div class="list-group">
+            <ul>
+                        <li class="borderRightSuccess active"><a
+                                href='#testIntStream'>testIntStream</a>
+                        </li>
+                        <li class="borderRightSuccess "><a
+                                href='#testIntParallelStream'>testIntParallelStream</a>
+                        </li>
+                        <li class="borderRightSuccess "><a
+                                href='#testIntFor'>testIntFor</a>
+                        </li>
+            </ul>
+        </div>
+    </aside>
+
+    <div class="main-wrapper">
+
+
+        <div id="testIntStream" class="test-method">
+            <span class="test-method-name">testIntStream</span>
+
+            <div id="testIntStream-img" class="test-method-img">
+                <!-- ADD scatter Chart here!! -->
+                <script type="text/javascript">
+                    google.charts.load('current', {'packages': ['corechart']});
+                    google.charts.setOnLoadCallback(drawChart);
+
+                    function drawChart() {
+                        var data = google.visualization.arrayToDataTable([
+                            ['Percentile', 'Latency', {role: "tooltip"}],
+                                [ 1, 256.349 , "1% of executions ≤ 256.349ms"],
+                                [ 2, 256.405 , "2% of executions ≤ 256.405ms"],
+                                [ 3, 256.413 , "3% of executions ≤ 256.413ms"],
+                                [ 4, 256.436 , "4% of executions ≤ 256.436ms"],
+                                [ 5, 256.482 , "5% of executions ≤ 256.482ms"],
+                                [ 6, 256.492 , "6% of executions ≤ 256.492ms"],
+                                [ 7, 256.516 , "7% of executions ≤ 256.516ms"],
+                                [ 8, 256.543 , "8% of executions ≤ 256.543ms"],
+                                [ 9, 256.592 , "9% of executions ≤ 256.592ms"],
+                                [ 10, 256.609 , "10% of executions ≤ 256.609ms"],
+                                [ 11, 256.625 , "11% of executions ≤ 256.625ms"],
+                                [ 12, 256.666 , "12% of executions ≤ 256.666ms"],
+                                [ 13, 256.7 , "13% of executions ≤ 256.7ms"],
+                                [ 14, 256.726 , "14% of executions ≤ 256.726ms"],
+                                [ 15, 256.771 , "15% of executions ≤ 256.771ms"],
+                                [ 16, 256.802 , "16% of executions ≤ 256.802ms"],
+                                [ 17, 256.812 , "17% of executions ≤ 256.812ms"],
+                                [ 18, 256.843 , "18% of executions ≤ 256.843ms"],
+                                [ 19, 256.858 , "19% of executions ≤ 256.858ms"],
+                                [ 20, 256.892 , "20% of executions ≤ 256.892ms"],
+                                [ 21, 256.904 , "21% of executions ≤ 256.904ms"],
+                                [ 22, 256.945 , "22% of executions ≤ 256.945ms"],
+                                [ 23, 256.959 , "23% of executions ≤ 256.959ms"],
+                                [ 24, 257.024 , "24% of executions ≤ 257.024ms"],
+                                [ 25, 257.035 , "25% of executions ≤ 257.035ms"],
+                                [ 26, 257.055 , "26% of executions ≤ 257.055ms"],
+                                [ 27, 257.073 , "27% of executions ≤ 257.073ms"],
+                                [ 28, 257.077 , "28% of executions ≤ 257.077ms"],
+                                [ 29, 257.095 , "29% of executions ≤ 257.095ms"],
+                                [ 30, 257.114 , "30% of executions ≤ 257.114ms"],
+                                [ 31, 257.143 , "31% of executions ≤ 257.143ms"],
+                                [ 32, 257.154 , "32% of executions ≤ 257.154ms"],
+                                [ 33, 257.216 , "33% of executions ≤ 257.216ms"],
+                                [ 34, 257.252 , "34% of executions ≤ 257.252ms"],
+                                [ 35, 257.281 , "35% of executions ≤ 257.281ms"],
+                                [ 36, 257.294 , "36% of executions ≤ 257.294ms"],
+                                [ 37, 257.309 , "37% of executions ≤ 257.309ms"],
+                                [ 38, 257.334 , "38% of executions ≤ 257.334ms"],
+                                [ 39, 257.37 , "39% of executions ≤ 257.37ms"],
+                                [ 40, 257.432 , "40% of executions ≤ 257.432ms"],
+                                [ 41, 257.51 , "41% of executions ≤ 257.51ms"],
+                                [ 42, 257.529 , "42% of executions ≤ 257.529ms"],
+                                [ 43, 257.579 , "43% of executions ≤ 257.579ms"],
+                                [ 44, 257.646 , "44% of executions ≤ 257.646ms"],
+                                [ 45, 257.699 , "45% of executions ≤ 257.699ms"],
+                                [ 46, 257.808 , "46% of executions ≤ 257.808ms"],
+                                [ 47, 257.867 , "47% of executions ≤ 257.867ms"],
+                                [ 48, 257.882 , "48% of executions ≤ 257.882ms"],
+                                [ 49, 257.888 , "49% of executions ≤ 257.888ms"],
+                                [ 50, 257.921 , "50% of executions ≤ 257.921ms"],
+                                [ 51, 258.074 , "51% of executions ≤ 258.074ms"],
+                                [ 52, 258.145 , "52% of executions ≤ 258.145ms"],
+                                [ 53, 258.403 , "53% of executions ≤ 258.403ms"],
+                                [ 54, 258.571 , "54% of executions ≤ 258.571ms"],
+                                [ 55, 258.622 , "55% of executions ≤ 258.622ms"],
+                                [ 56, 258.768 , "56% of executions ≤ 258.768ms"],
+                                [ 57, 258.864 , "57% of executions ≤ 258.864ms"],
+                                [ 58, 258.905 , "58% of executions ≤ 258.905ms"],
+                                [ 59, 259.008 , "59% of executions ≤ 259.008ms"],
+                                [ 60, 259.137 , "60% of executions ≤ 259.137ms"],
+                                [ 61, 259.169 , "61% of executions ≤ 259.169ms"],
+                                [ 62, 259.236 , "62% of executions ≤ 259.236ms"],
+                                [ 63, 259.475 , "63% of executions ≤ 259.475ms"],
+                                [ 64, 259.585 , "64% of executions ≤ 259.585ms"],
+                                [ 65, 259.7 , "65% of executions ≤ 259.7ms"],
+                                [ 66, 259.781 , "66% of executions ≤ 259.781ms"],
+                                [ 67, 259.92 , "67% of executions ≤ 259.92ms"],
+                                [ 68, 260.007 , "68% of executions ≤ 260.007ms"],
+                                [ 69, 260.048 , "69% of executions ≤ 260.048ms"],
+                                [ 70, 260.132 , "70% of executions ≤ 260.132ms"],
+                                [ 71, 260.244 , "71% of executions ≤ 260.244ms"],
+                                [ 72, 260.326 , "72% of executions ≤ 260.326ms"],
+                                [ 73, 260.485 , "73% of executions ≤ 260.485ms"],
+                                [ 74, 260.629 , "74% of executions ≤ 260.629ms"],
+                                [ 75, 260.873 , "75% of executions ≤ 260.873ms"],
+                                [ 76, 260.96 , "76% of executions ≤ 260.96ms"],
+                                [ 77, 261.128 , "77% of executions ≤ 261.128ms"],
+                                [ 78, 261.231 , "78% of executions ≤ 261.231ms"],
+                                [ 79, 261.28 , "79% of executions ≤ 261.28ms"],
+                                [ 80, 261.318 , "80% of executions ≤ 261.318ms"],
+                                [ 81, 261.431 , "81% of executions ≤ 261.431ms"],
+                                [ 82, 261.528 , "82% of executions ≤ 261.528ms"],
+                                [ 83, 261.671 , "83% of executions ≤ 261.671ms"],
+                                [ 84, 261.82 , "84% of executions ≤ 261.82ms"],
+                                [ 85, 261.899 , "85% of executions ≤ 261.899ms"],
+                                [ 86, 261.924 , "86% of executions ≤ 261.924ms"],
+                                [ 87, 262.257 , "87% of executions ≤ 262.257ms"],
+                                [ 88, 262.599 , "88% of executions ≤ 262.599ms"],
+                                [ 89, 262.752 , "89% of executions ≤ 262.752ms"],
+                                [ 90, 262.951 , "90% of executions ≤ 262.951ms"],
+                                [ 91, 263.054 , "91% of executions ≤ 263.054ms"],
+                                [ 92, 263.297 , "92% of executions ≤ 263.297ms"],
+                                [ 93, 264.237 , "93% of executions ≤ 264.237ms"],
+                                [ 94, 264.986 , "94% of executions ≤ 264.986ms"],
+                                [ 95, 266.028 , "95% of executions ≤ 266.028ms"],
+                                [ 96, 269.684 , "96% of executions ≤ 269.684ms"],
+                                [ 97, 274.168 , "97% of executions ≤ 274.168ms"],
+                                [ 98, 279.437 , "98% of executions ≤ 279.437ms"],
+                                [ 99, 285.899 , "99% of executions ≤ 285.899ms"],
+                                [ 100, 316.179 , "100% of executions ≤ 316.179ms"],
+                        ]);
+                        var options = {
+                            title: 'Latency percentile Distribution',
+                            hAxis: {title: 'Percentile', minValue: 0, maxValue: 100},
+                            vAxis: {title: 'Latency', minValue: 0, maxValue: 15},
+                            legend: 'none',
+                            lineWidth: 1,
+                            pointSize: 7,
+                            dataOpacity: 0.5
+                        };
+                        var chart = new google.visualization.ScatterChart(document.getElementById('testIntStream-img'));
+                        chart.draw(data, options);
+                    }
+                </script>
+            </div>
+
+            <div class="data-wrapper">
+                <div class="left-data">
+                    <ul>
+                        <li><label>调用数
+                            : </label><span>232</span>
+                        </li>
+                        <li>
+                            <label>成功数: </label><span>232</span>
+                        </li>
+                        <li><label>线程数
+                            : </label><span>1</span></li>
+
+                        <li><label>准备时间
+                            : </label><span>1,000 ms</span></li>
+                        <li><label>执行时间
+                            : </label><span>60,000 ms</span>
+                        </li>
+                        <li><label>开始时间: </label><span>2021-01-13 21:50:02.144</span>
+                        </li>
+                    </ul>
+                </div>
+
+                <div class="right-data">
+                    <table class="table">
+                        <thead>
+                        <tr>
+                            <td>类型</td>
+                            <td>实际</td>
+                            <td>需求</td>
+                        </tr>
+                        </thead>
+                        <tbody>
+
+                        <tr>
+                            <td>吞吐量</td>
+                            <td style="color: #00000">3 / s</td>
+                            <td>-1 / s</td>
+                        </tr>
+                        <tr>
+                            <td>最小延迟</td>
+                            <td style="color: #00000">256.335 ms</td>
+                            <td>-1 ms</td>
+                        </tr>
+                        <tr>
+                            <td>平均延迟</td>
+                            <td style="color: #00000">259.734 ms</td>
+                            <td>-1 ms</td>
+                        </tr>
+                        <tr>
+                            <td>最大延迟</td>
+                            <td style="color: #00000">316.179 ms</td>
+                            <td>-1 ms</td>
+                        </tr>
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+
+        </div>
+
+
+        <div id="testIntParallelStream" class="test-method">
+            <span class="test-method-name">testIntParallelStream</span>
+
+            <div id="testIntParallelStream-img" class="test-method-img">
+                <!-- ADD scatter Chart here!! -->
+                <script type="text/javascript">
+                    google.charts.load('current', {'packages': ['corechart']});
+                    google.charts.setOnLoadCallback(drawChart);
+
+                    function drawChart() {
+                        var data = google.visualization.arrayToDataTable([
+                            ['Percentile', 'Latency', {role: "tooltip"}],
+                                [ 1, 61.029 , "1% of executions ≤ 61.029ms"],
+                                [ 2, 61.089 , "2% of executions ≤ 61.089ms"],
+                                [ 3, 61.116 , "3% of executions ≤ 61.116ms"],
+                                [ 4, 61.145 , "4% of executions ≤ 61.145ms"],
+                                [ 5, 61.163 , "5% of executions ≤ 61.163ms"],
+                                [ 6, 61.188 , "6% of executions ≤ 61.188ms"],
+                                [ 7, 61.221 , "7% of executions ≤ 61.221ms"],
+                                [ 8, 61.264 , "8% of executions ≤ 61.264ms"],
+                                [ 9, 61.284 , "9% of executions ≤ 61.284ms"],
+                                [ 10, 61.311 , "10% of executions ≤ 61.311ms"],
+                                [ 11, 61.321 , "11% of executions ≤ 61.321ms"],
+                                [ 12, 61.33 , "12% of executions ≤ 61.33ms"],
+                                [ 13, 61.344 , "13% of executions ≤ 61.344ms"],
+                                [ 14, 61.356 , "14% of executions ≤ 61.356ms"],
+                                [ 15, 61.379 , "15% of executions ≤ 61.379ms"],
+                                [ 16, 61.397 , "16% of executions ≤ 61.397ms"],
+                                [ 17, 61.425 , "17% of executions ≤ 61.425ms"],
+                                [ 18, 61.433 , "18% of executions ≤ 61.433ms"],
+                                [ 19, 61.462 , "19% of executions ≤ 61.462ms"],
+                                [ 20, 61.483 , "20% of executions ≤ 61.483ms"],
+                                [ 21, 61.498 , "21% of executions ≤ 61.498ms"],
+                                [ 22, 61.542 , "22% of executions ≤ 61.542ms"],
+                                [ 23, 61.562 , "23% of executions ≤ 61.562ms"],
+                                [ 24, 61.581 , "24% of executions ≤ 61.581ms"],
+                                [ 25, 61.589 , "25% of executions ≤ 61.589ms"],
+                                [ 26, 61.603 , "26% of executions ≤ 61.603ms"],
+                                [ 27, 61.639 , "27% of executions ≤ 61.639ms"],
+                                [ 28, 61.665 , "28% of executions ≤ 61.665ms"],
+                                [ 29, 61.682 , "29% of executions ≤ 61.682ms"],
+                                [ 30, 61.694 , "30% of executions ≤ 61.694ms"],
+                                [ 31, 61.715 , "31% of executions ≤ 61.715ms"],
+                                [ 32, 61.725 , "32% of executions ≤ 61.725ms"],
+                                [ 33, 61.732 , "33% of executions ≤ 61.732ms"],
+                                [ 34, 61.749 , "34% of executions ≤ 61.749ms"],
+                                [ 35, 61.764 , "35% of executions ≤ 61.764ms"],
+                                [ 36, 61.774 , "36% of executions ≤ 61.774ms"],
+                                [ 37, 61.787 , "37% of executions ≤ 61.787ms"],
+                                [ 38, 61.812 , "38% of executions ≤ 61.812ms"],
+                                [ 39, 61.827 , "39% of executions ≤ 61.827ms"],
+                                [ 40, 61.836 , "40% of executions ≤ 61.836ms"],
+                                [ 41, 61.847 , "41% of executions ≤ 61.847ms"],
+                                [ 42, 61.86 , "42% of executions ≤ 61.86ms"],
+                                [ 43, 61.864 , "43% of executions ≤ 61.864ms"],
+                                [ 44, 61.877 , "44% of executions ≤ 61.877ms"],
+                                [ 45, 61.888 , "45% of executions ≤ 61.888ms"],
+                                [ 46, 61.895 , "46% of executions ≤ 61.895ms"],
+                                [ 47, 61.902 , "47% of executions ≤ 61.902ms"],
+                                [ 48, 61.913 , "48% of executions ≤ 61.913ms"],
+                                [ 49, 61.925 , "49% of executions ≤ 61.925ms"],
+                                [ 50, 61.935 , "50% of executions ≤ 61.935ms"],
+                                [ 51, 61.949 , "51% of executions ≤ 61.949ms"],
+                                [ 52, 61.96 , "52% of executions ≤ 61.96ms"],
+                                [ 53, 61.967 , "53% of executions ≤ 61.967ms"],
+                                [ 54, 61.979 , "54% of executions ≤ 61.979ms"],
+                                [ 55, 61.986 , "55% of executions ≤ 61.986ms"],
+                                [ 56, 61.997 , "56% of executions ≤ 61.997ms"],
+                                [ 57, 62.023 , "57% of executions ≤ 62.023ms"],
+                                [ 58, 62.049 , "58% of executions ≤ 62.049ms"],
+                                [ 59, 62.061 , "59% of executions ≤ 62.061ms"],
+                                [ 60, 62.081 , "60% of executions ≤ 62.081ms"],
+                                [ 61, 62.104 , "61% of executions ≤ 62.104ms"],
+                                [ 62, 62.122 , "62% of executions ≤ 62.122ms"],
+                                [ 63, 62.141 , "63% of executions ≤ 62.141ms"],
+                                [ 64, 62.156 , "64% of executions ≤ 62.156ms"],
+                                [ 65, 62.165 , "65% of executions ≤ 62.165ms"],
+                                [ 66, 62.194 , "66% of executions ≤ 62.194ms"],
+                                [ 67, 62.219 , "67% of executions ≤ 62.219ms"],
+                                [ 68, 62.248 , "68% of executions ≤ 62.248ms"],
+                                [ 69, 62.266 , "69% of executions ≤ 62.266ms"],
+                                [ 70, 62.293 , "70% of executions ≤ 62.293ms"],
+                                [ 71, 62.332 , "71% of executions ≤ 62.332ms"],
+                                [ 72, 62.355 , "72% of executions ≤ 62.355ms"],
+                                [ 73, 62.39 , "73% of executions ≤ 62.39ms"],
+                                [ 74, 62.424 , "74% of executions ≤ 62.424ms"],
+                                [ 75, 62.441 , "75% of executions ≤ 62.441ms"],
+                                [ 76, 62.477 , "76% of executions ≤ 62.477ms"],
+                                [ 77, 62.5 , "77% of executions ≤ 62.5ms"],
+                                [ 78, 62.545 , "78% of executions ≤ 62.545ms"],
+                                [ 79, 62.573 , "79% of executions ≤ 62.573ms"],
+                                [ 80, 62.615 , "80% of executions ≤ 62.615ms"],
+                                [ 81, 62.677 , "81% of executions ≤ 62.677ms"],
+                                [ 82, 62.811 , "82% of executions ≤ 62.811ms"],
+                                [ 83, 62.948 , "83% of executions ≤ 62.948ms"],
+                                [ 84, 63.08 , "84% of executions ≤ 63.08ms"],
+                                [ 85, 63.316 , "85% of executions ≤ 63.316ms"],
+                                [ 86, 63.618 , "86% of executions ≤ 63.618ms"],
+                                [ 87, 63.883 , "87% of executions ≤ 63.883ms"],
+                                [ 88, 64.329 , "88% of executions ≤ 64.329ms"],
+                                [ 89, 64.588 , "89% of executions ≤ 64.588ms"],
+                                [ 90, 64.934 , "90% of executions ≤ 64.934ms"],
+                                [ 91, 65.491 , "91% of executions ≤ 65.491ms"],
+                                [ 92, 65.603 , "92% of executions ≤ 65.603ms"],
+                                [ 93, 65.761 , "93% of executions ≤ 65.761ms"],
+                                [ 94, 65.95 , "94% of executions ≤ 65.95ms"],
+                                [ 95, 66.064 , "95% of executions ≤ 66.064ms"],
+                                [ 96, 66.265 , "96% of executions ≤ 66.265ms"],
+                                [ 97, 66.763 , "97% of executions ≤ 66.763ms"],
+                                [ 98, 67.533 , "98% of executions ≤ 67.533ms"],
+                                [ 99, 67.84 , "99% of executions ≤ 67.84ms"],
+                                [ 100, 82.983 , "100% of executions ≤ 82.983ms"],
+                        ]);
+                        var options = {
+                            title: 'Latency percentile Distribution',
+                            hAxis: {title: 'Percentile', minValue: 0, maxValue: 100},
+                            vAxis: {title: 'Latency', minValue: 0, maxValue: 15},
+                            legend: 'none',
+                            lineWidth: 1,
+                            pointSize: 7,
+                            dataOpacity: 0.5
+                        };
+                        var chart = new google.visualization.ScatterChart(document.getElementById('testIntParallelStream-img'));
+                        chart.draw(data, options);
+                    }
+                </script>
+            </div>
+
+            <div class="data-wrapper">
+                <div class="left-data">
+                    <ul>
+                        <li><label>调用数
+                            : </label><span>960</span>
+                        </li>
+                        <li>
+                            <label>成功数: </label><span>960</span>
+                        </li>
+                        <li><label>线程数
+                            : </label><span>1</span></li>
+
+                        <li><label>准备时间
+                            : </label><span>1,000 ms</span></li>
+                        <li><label>执行时间
+                            : </label><span>60,000 ms</span>
+                        </li>
+                        <li><label>开始时间: </label><span>2021-01-13 21:52:03.271</span>
+                        </li>
+                    </ul>
+                </div>
+
+                <div class="right-data">
+                    <table class="table">
+                        <thead>
+                        <tr>
+                            <td>类型</td>
+                            <td>实际</td>
+                            <td>需求</td>
+                        </tr>
+                        </thead>
+                        <tbody>
+
+                        <tr>
+                            <td>吞吐量</td>
+                            <td style="color: #00000">16 / s</td>
+                            <td>-1 / s</td>
+                        </tr>
+                        <tr>
+                            <td>最小延迟</td>
+                            <td style="color: #00000">60.891 ms</td>
+                            <td>-1 ms</td>
+                        </tr>
+                        <tr>
+                            <td>平均延迟</td>
+                            <td style="color: #00000">62.456 ms</td>
+                            <td>-1 ms</td>
+                        </tr>
+                        <tr>
+                            <td>最大延迟</td>
+                            <td style="color: #00000">82.983 ms</td>
+                            <td>-1 ms</td>
+                        </tr>
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+
+        </div>
+
+
+        <div id="testIntFor" class="test-method">
+            <span class="test-method-name">testIntFor</span>
+
+            <div id="testIntFor-img" class="test-method-img">
+                <!-- ADD scatter Chart here!! -->
+                <script type="text/javascript">
+                    google.charts.load('current', {'packages': ['corechart']});
+                    google.charts.setOnLoadCallback(drawChart);
+
+                    function drawChart() {
+                        var data = google.visualization.arrayToDataTable([
+                            ['Percentile', 'Latency', {role: "tooltip"}],
+                                [ 1, 121.9 , "1% of executions ≤ 121.9ms"],
+                                [ 2, 121.958 , "2% of executions ≤ 121.958ms"],
+                                [ 3, 121.993 , "3% of executions ≤ 121.993ms"],
+                                [ 4, 122.053 , "4% of executions ≤ 122.053ms"],
+                                [ 5, 122.076 , "5% of executions ≤ 122.076ms"],
+                                [ 6, 122.144 , "6% of executions ≤ 122.144ms"],
+                                [ 7, 122.165 , "7% of executions ≤ 122.165ms"],
+                                [ 8, 122.202 , "8% of executions ≤ 122.202ms"],
+                                [ 9, 122.213 , "9% of executions ≤ 122.213ms"],
+                                [ 10, 122.229 , "10% of executions ≤ 122.229ms"],
+                                [ 11, 122.25 , "11% of executions ≤ 122.25ms"],
+                                [ 12, 122.27 , "12% of executions ≤ 122.27ms"],
+                                [ 13, 122.307 , "13% of executions ≤ 122.307ms"],
+                                [ 14, 122.351 , "14% of executions ≤ 122.351ms"],
+                                [ 15, 122.366 , "15% of executions ≤ 122.366ms"],
+                                [ 16, 122.406 , "16% of executions ≤ 122.406ms"],
+                                [ 17, 122.424 , "17% of executions ≤ 122.424ms"],
+                                [ 18, 122.475 , "18% of executions ≤ 122.475ms"],
+                                [ 19, 122.512 , "19% of executions ≤ 122.512ms"],
+                                [ 20, 122.546 , "20% of executions ≤ 122.546ms"],
+                                [ 21, 122.576 , "21% of executions ≤ 122.576ms"],
+                                [ 22, 122.597 , "22% of executions ≤ 122.597ms"],
+                                [ 23, 122.641 , "23% of executions ≤ 122.641ms"],
+                                [ 24, 122.692 , "24% of executions ≤ 122.692ms"],
+                                [ 25, 122.724 , "25% of executions ≤ 122.724ms"],
+                                [ 26, 122.781 , "26% of executions ≤ 122.781ms"],
+                                [ 27, 122.807 , "27% of executions ≤ 122.807ms"],
+                                [ 28, 122.855 , "28% of executions ≤ 122.855ms"],
+                                [ 29, 122.91 , "29% of executions ≤ 122.91ms"],
+                                [ 30, 122.948 , "30% of executions ≤ 122.948ms"],
+                                [ 31, 123.014 , "31% of executions ≤ 123.014ms"],
+                                [ 32, 123.05 , "32% of executions ≤ 123.05ms"],
+                                [ 33, 123.087 , "33% of executions ≤ 123.087ms"],
+                                [ 34, 123.175 , "34% of executions ≤ 123.175ms"],
+                                [ 35, 123.276 , "35% of executions ≤ 123.276ms"],
+                                [ 36, 123.423 , "36% of executions ≤ 123.423ms"],
+                                [ 37, 123.471 , "37% of executions ≤ 123.471ms"],
+                                [ 38, 123.526 , "38% of executions ≤ 123.526ms"],
+                                [ 39, 123.597 , "39% of executions ≤ 123.597ms"],
+                                [ 40, 123.691 , "40% of executions ≤ 123.691ms"],
+                                [ 41, 123.77 , "41% of executions ≤ 123.77ms"],
+                                [ 42, 123.832 , "42% of executions ≤ 123.832ms"],
+                                [ 43, 123.876 , "43% of executions ≤ 123.876ms"],
+                                [ 44, 123.963 , "44% of executions ≤ 123.963ms"],
+                                [ 45, 124.039 , "45% of executions ≤ 124.039ms"],
+                                [ 46, 124.104 , "46% of executions ≤ 124.104ms"],
+                                [ 47, 124.16 , "47% of executions ≤ 124.16ms"],
+                                [ 48, 124.197 , "48% of executions ≤ 124.197ms"],
+                                [ 49, 124.237 , "49% of executions ≤ 124.237ms"],
+                                [ 50, 124.324 , "50% of executions ≤ 124.324ms"],
+                                [ 51, 124.365 , "51% of executions ≤ 124.365ms"],
+                                [ 52, 124.441 , "52% of executions ≤ 124.441ms"],
+                                [ 53, 124.506 , "53% of executions ≤ 124.506ms"],
+                                [ 54, 124.529 , "54% of executions ≤ 124.529ms"],
+                                [ 55, 124.575 , "55% of executions ≤ 124.575ms"],
+                                [ 56, 124.655 , "56% of executions ≤ 124.655ms"],
+                                [ 57, 124.73 , "57% of executions ≤ 124.73ms"],
+                                [ 58, 124.776 , "58% of executions ≤ 124.776ms"],
+                                [ 59, 124.831 , "59% of executions ≤ 124.831ms"],
+                                [ 60, 124.914 , "60% of executions ≤ 124.914ms"],
+                                [ 61, 124.936 , "61% of executions ≤ 124.936ms"],
+                                [ 62, 125.067 , "62% of executions ≤ 125.067ms"],
+                                [ 63, 125.18 , "63% of executions ≤ 125.18ms"],
+                                [ 64, 125.292 , "64% of executions ≤ 125.292ms"],
+                                [ 65, 125.318 , "65% of executions ≤ 125.318ms"],
+                                [ 66, 125.404 , "66% of executions ≤ 125.404ms"],
+                                [ 67, 125.428 , "67% of executions ≤ 125.428ms"],
+                                [ 68, 125.46 , "68% of executions ≤ 125.46ms"],
+                                [ 69, 125.525 , "69% of executions ≤ 125.525ms"],
+                                [ 70, 125.605 , "70% of executions ≤ 125.605ms"],
+                                [ 71, 125.695 , "71% of executions ≤ 125.695ms"],
+                                [ 72, 125.779 , "72% of executions ≤ 125.779ms"],
+                                [ 73, 125.86 , "73% of executions ≤ 125.86ms"],
+                                [ 74, 126.002 , "74% of executions ≤ 126.002ms"],
+                                [ 75, 126.122 , "75% of executions ≤ 126.122ms"],
+                                [ 76, 126.272 , "76% of executions ≤ 126.272ms"],
+                                [ 77, 126.301 , "77% of executions ≤ 126.301ms"],
+                                [ 78, 126.333 , "78% of executions ≤ 126.333ms"],
+                                [ 79, 126.388 , "79% of executions ≤ 126.388ms"],
+                                [ 80, 126.491 , "80% of executions ≤ 126.491ms"],
+                                [ 81, 126.591 , "81% of executions ≤ 126.591ms"],
+                                [ 82, 126.731 , "82% of executions ≤ 126.731ms"],
+                                [ 83, 126.844 , "83% of executions ≤ 126.844ms"],
+                                [ 84, 127.11 , "84% of executions ≤ 127.11ms"],
+                                [ 85, 127.316 , "85% of executions ≤ 127.316ms"],
+                                [ 86, 127.721 , "86% of executions ≤ 127.721ms"],
+                                [ 87, 127.899 , "87% of executions ≤ 127.899ms"],
+                                [ 88, 128.014 , "88% of executions ≤ 128.014ms"],
+                                [ 89, 128.103 , "89% of executions ≤ 128.103ms"],
+                                [ 90, 128.639 , "90% of executions ≤ 128.639ms"],
+                                [ 91, 129.036 , "91% of executions ≤ 129.036ms"],
+                                [ 92, 129.26 , "92% of executions ≤ 129.26ms"],
+                                [ 93, 129.719 , "93% of executions ≤ 129.719ms"],
+                                [ 94, 130.404 , "94% of executions ≤ 130.404ms"],
+                                [ 95, 131.172 , "95% of executions ≤ 131.172ms"],
+                                [ 96, 131.923 , "96% of executions ≤ 131.923ms"],
+                                [ 97, 132.351 , "97% of executions ≤ 132.351ms"],
+                                [ 98, 136.294 , "98% of executions ≤ 136.294ms"],
+                                [ 99, 141.182 , "99% of executions ≤ 141.182ms"],
+                                [ 100, 158.016 , "100% of executions ≤ 158.016ms"],
+                        ]);
+                        var options = {
+                            title: 'Latency percentile Distribution',
+                            hAxis: {title: 'Percentile', minValue: 0, maxValue: 100},
+                            vAxis: {title: 'Latency', minValue: 0, maxValue: 15},
+                            legend: 'none',
+                            lineWidth: 1,
+                            pointSize: 7,
+                            dataOpacity: 0.5
+                        };
+                        var chart = new google.visualization.ScatterChart(document.getElementById('testIntFor-img'));
+                        chart.draw(data, options);
+                    }
+                </script>
+            </div>
+
+            <div class="data-wrapper">
+                <div class="left-data">
+                    <ul>
+                        <li><label>调用数
+                            : </label><span>479</span>
+                        </li>
+                        <li>
+                            <label>成功数: </label><span>479</span>
+                        </li>
+                        <li><label>线程数
+                            : </label><span>1</span></li>
+
+                        <li><label>准备时间
+                            : </label><span>1,000 ms</span></li>
+                        <li><label>执行时间
+                            : </label><span>60,000 ms</span>
+                        </li>
+                        <li><label>开始时间: </label><span>2021-01-13 21:51:03.057</span>
+                        </li>
+                    </ul>
+                </div>
+
+                <div class="right-data">
+                    <table class="table">
+                        <thead>
+                        <tr>
+                            <td>类型</td>
+                            <td>实际</td>
+                            <td>需求</td>
+                        </tr>
+                        </thead>
+                        <tbody>
+
+                        <tr>
+                            <td>吞吐量</td>
+                            <td style="color: #00000">8 / s</td>
+                            <td>-1 / s</td>
+                        </tr>
+                        <tr>
+                            <td>最小延迟</td>
+                            <td style="color: #00000">121.639 ms</td>
+                            <td>-1 ms</td>
+                        </tr>
+                        <tr>
+                            <td>平均延迟</td>
+                            <td style="color: #00000">125.086 ms</td>
+                            <td>-1 ms</td>
+                        </tr>
+                        <tr>
+                            <td>最大延迟</td>
+                            <td style="color: #00000">158.016 ms</td>
+                            <td>-1 ms</td>
+                        </tr>
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+
+        </div>
+
+
+    </div>
+
+
+</section>
+
+<footer>
+    <div>
+    报告技术支持 <a href='https://github.com/houbb/junitperf'>JunitPerf</a>
+        <a href="#" id="top">顶部</a>
+    </div>
+</footer>
+
+</body>
+</html>
+
+

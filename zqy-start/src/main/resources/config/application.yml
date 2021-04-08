@@ -1,0 +1,41 @@
+server:
+  port: 8081
+  tomcat:
+    uri-encoding: UTF-8
+    ## 等待队列长度，默认100。
+    #accept-count: 1000
+    ## 超时最多5秒后断开连接
+    connection-timeout: 5000
+    threads:
+      ## 最大工作线程数，默认200。（4核8g内存，线程数经验值800，操作系统做线程之间的切换调度是有系统开销的，所以不是越多越好。）
+      max: 800
+      ## 最小工作空闲线程数，默认10。（适当增大一些，以便应对突然增长的访问量）
+      min-spare: 100
+  servlet:
+    encoding:
+      force: true
+      charset: UTF-8
+      enabled: true
+
+spring:
+  main:
+    allow-bean-definition-overriding: true
+
+  application:
+    name: treasury-brain
+  datasource:
+    type: com.zaxxer.hikari.HikariDataSource
+    url: jdbc:mysql://127.0.0.1:3306/zqysama?serverTimezone=UTC&useUnicode=true&characterEncoding=utf-8&useSSL=false&allowMultiQueries=true
+    username: tbrain
+    password: tbrain
+    driver-class-name: com.mysql.cj.jdbc.Driver
+  redis:
+    host: 127.0.0.1
+    port: 6379
+    password:
+    timeout: 60000
+
+
+
+mybatis:
+  mapper-locations: classpath:mybatis/*.xml

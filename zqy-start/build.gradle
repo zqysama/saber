@@ -1,0 +1,4 @@
+dependencies {
+    implementation(project(":zqy-common"))
+    implementation(project(":zqy-test:zqy-test-impl"))
+}

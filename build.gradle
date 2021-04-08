@@ -1,23 +1,112 @@
-plugins {
-    id 'org.springframework.boot' version '2.4.1'
-    id 'io.spring.dependency-management' version '1.0.10.RELEASE'
-    id 'java'
+buildscript {
+
+    repositories {
+        maven {
+            url 'http://maven.aliyun.com/nexus/content/groups/public/'
+        }
+        maven {
+            url "https://plugins.gradle.org/m2/"
+        }
+        mavenCentral()
+    }
+
+    dependencies {
+        classpath "io.spring.gradle:dependency-management-plugin:${springDependencyManagementVersion}"
+    }
 }
 
-group = 'com.zqysama'
-version = '0.0.1-SNAPSHOT'
-sourceCompatibility = '1.8'
+allprojects {
+    apply plugin:'java'
+    apply plugin: 'maven'
+    apply plugin: 'io.spring.dependency-management'
 
-repositories {
-    mavenCentral()
+    group = 'com.zqysama'
+    version = '0.0.1-SNAPSHOT'
+    sourceCompatibility = '1.8'
+
+    repositories {
+        maven {
+            url 'http://maven.aliyun.com/nexus/content/groups/public/'
+        }
+        maven {
+            url 'http://www.datanucleus.org/downloads/maven2/'
+        }
+        maven {
+            url 'http://nexus.pentaho.org/content/groups/omni'
+        }
+        mavenCentral()
+    }
+    dependencyManagement {
+        imports {
+            mavenBom "org.springframework.boot:spring-boot-starter-parent:${springBootVersion}"
+            mavenBom "org.springframework.cloud:spring-cloud-dependencies:${springCloudVersion}"
+            mavenBom 'org.springframework.cloud:spring-cloud-alibaba-dependencies:0.9.0.RELEASE'
+        }
+    }
+
+    dependencies {
+
+        //log4j
+        implementation "log4j:log4j:${log4jVersion}"
+
+        implementation "org.springframework.boot:spring-boot-starter"
+        implementation "org.springframework.boot:spring-boot-starter-jdbc"
+        implementation "org.springframework.boot:spring-boot-starter-thymeleaf"
+        implementation "org.springframework.boot:spring-boot-starter-web"
+        runtimeOnly 'mysql:mysql-connector-java'
+        testImplementation "org.springframework.boot:spring-boot-starter-test"
+        implementation 'org.springframework.boot:spring-boot-starter-aop'
+        implementation 'org.springframework.boot:spring-boot-starter-actuator'
+        annotationProcessor "org.springframework.boot:spring-boot-configuration-processor"
+        runtimeOnly 'org.springframework.boot:spring-boot-devtools'
+        compile "org.springframework.boot:spring-boot-starter-data-redis"
+
+        // junit5
+        testImplementation "org.junit.jupiter:junit-jupiter:${junitVersion}"
+
+        implementation "com.github.houbb:junitperf:2.0.0"
+    }
+
+    task cleanBuildOutDir(type: Delete) {
+        delete "${projectDir}/build"
+        delete "${projectDir}/out"
+    }
 }
 
-dependencies {
-    implementation 'org.springframework.boot:spring-boot-starter-jdbc'
-    implementation 'org.springframework.boot:spring-boot-starter-thymeleaf'
-    implementation 'org.springframework.boot:spring-boot-starter-web'
-    runtimeOnly 'mysql:mysql-connector-java'
-    testImplementation 'org.springframework.boot:spring-boot-starter-test'
+subprojects {
+
+    if (it.name.endsWith("-impl")) {
+        dependencies {
+            // impl 依赖同名 api
+            compile project(":$project.parent.name:$project.parent.name-api")
+
+            // 依赖公共模块
+            compile project(":zqy-common")
+
+            compile group: 'org.apache.commons', name: 'commons-lang3', version: '3.8.1'
+
+            // jdbc
+            compile "org.springframework.boot:spring-boot-starter-jdbc"
+
+            // redis
+            compile "org.springframework.boot:spring-boot-starter-data-redis"
+            compile "org.apache.commons:commons-pool2"
+
+            // mapstruct
+            compileOnly "org.mapstruct:mapstruct-processor:${mapstructVersion}"
+            annotationProcessor "org.mapstruct:mapstruct-processor:${mapstructVersion}"
+            implementation "org.mapstruct:mapstruct-jdk8:${mapstructVersion}"
+
+            // mybatis
+            implementation "org.mybatis.spring.boot:mybatis-spring-boot-starter:${springBootMybatisVersion}"
+        }
+    }
+
+    dependencies {
+        compileOnly 'org.projectlombok:lombok'
+        annotationProcessor 'org.projectlombok:lombok'
+    }
+
 }
 
 test {

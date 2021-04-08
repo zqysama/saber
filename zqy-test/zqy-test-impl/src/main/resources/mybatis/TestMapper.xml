@@ -1,0 +1,14 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.zqysama.test.repository.TestMapper">
+    <resultMap id="Test" type="com.zqysama.test.po.TestPO">
+        <result column="ID" property="id" jdbcType="VARCHAR"/>
+        <result column="NAME" property="name" jdbcType="VARCHAR"/>
+        <result column="DATE" property="date" jdbcType="VARCHAR"/>
+    </resultMap>
+
+    <select id="qryAllTest" resultMap="Test">
+        select * from test
+    </select>
+
+</mapper>
