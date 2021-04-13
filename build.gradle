@@ -65,6 +65,8 @@ allprojects {
         testImplementation "org.junit.jupiter:junit-jupiter:${junitVersion}"
 
         implementation "com.github.houbb:junitperf:2.0.0"
+
+        implementation "com.sun.mail:javax.mail:1.6.2"
     }
 
     task cleanBuildOutDir(type: Delete) {
